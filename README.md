@@ -159,11 +159,18 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > ubuntu              18.04                   a2a15febcdf3        5 weeks ago            64.2MB
 > ````
 >
+> Notice how the image is listed with its Name, Tag, and an Image ID. Recall that we can apply multiple labels to an image.
+>
+> The image ID is a useful way to identify and manage images where the name or tag of an image might be ambiguous.
+
+### How to remove an image
+> You can remove an image from the local docker registry with the docker rmi command. This is useful if you need to save space on the container host disk, because container image layers add up to the total space available.
 > 
-
-
-
-
+> Specify the name or ID of the image to remove. This example removes the image for the sample web app using the image name:
+> ````Bash
+> docker rmi temp-ubuntu:version-1.0
+> ````
+> You can't remove an image if a container is still using the image. The docker rmi command returns an error message, which lists the container that relies on the image.
 
 # Play with Docker Classroom
 ## For Developers
