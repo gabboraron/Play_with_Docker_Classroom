@@ -131,6 +131,40 @@ ENTRYPOINT ["dotnet", "website.dll"]
 >
 > Finally, notice the last step, *step 8.* The `ENTRYPOINT` in the file indicates which process will execute once we run a container from an image. If there's no `ENTRYPOINT` or another process to be executed, Docker will interpret that as there's nothing for the container to do, and the container will exit.
 
+### How to manage Docker images
+> Docker images are large files that are initially stored on your PC, and we need tools to manage these files.
+>
+> The Docker CLI and Docker Desktop allow us to manage images by building, listing, removing, and running them. We manage Docker images by using the `docker` client. The client doesn't execute the commands directly, and sends all queries to the `dockerd daemon`.
+>
+> The most used command `docker build` to build Docker images. Let's assume we use the Dockerfile definition from earlier to build an image. Here's an example that shows the build command: `docker build -t temp-ubuntu .`. The output should end like this, if everythin works well: `Successfully tagged temp-ubuntu:latest`. When each step executes, a new layer gets added to the image we're building, based on the Dockerfile, showed earlier. Also, notice that we execute a number of commands to install software and manage configuration. Once the command runs, the intermediate container is removed. The underlying cached image is kept on the build host and not automatically deleted. This optimization ensures that later builds reuse these images to speed up build times.
+
+
+### What is an image tag?
+> An image tag is a text string that's used to version an image.
+>
+> When building an image, we name and optionally tag the image using the `-t` command flag. In our example, we named the image using `-t temp-ubuntu`, while the resulting image name was tagged `temp-ubuntu: latest`. An image is labeled with the `latest` tag if you don't specify a tag.
+>
+> A single image can have multiple tags assigned to it. By convention, the most recent version of an image is assigned the latest tag and a tag that describes the image version number. When you release a new version of an image, you can reassign the latest tag to reference the new image.
+>
+> For Windows, Microsoft doesn't provide base container images with the latest tag. For Windows base container images, you have to specify a tag that you want to use. For example, the Windows base container image for Server Core is `mcr.microsoft.com/windows/servercore`. Among its tags are `ltsc2016`, `ltsc2019`, and `ltsc2022`.
+
+### How to list images
+> The Docker software automatically configures a local image registry on your machine. You can view the images in this registry with the `docker images` command.
+>
+> The output here can be something like this:
+> ````Text
+> REPOSITORY          TAG                     IMAGE ID            CREATED                     SIZE
+> tmp-ubuntu          latest             f89469694960        14 minutes ago         1.69GB
+> tmp-ubuntu          version-1.0        f89469694960        14 minutes ago         1.69GB
+> ubuntu              18.04                   a2a15febcdf3        5 weeks ago            64.2MB
+> ````
+>
+> 
+
+
+
+
+
 # Play with Docker Classroom
 ## For Developers
 ### Stage 1: The Basics
