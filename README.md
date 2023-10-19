@@ -19,33 +19,33 @@
 
 <center><img src="https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/media/2-docker-architecture.svg"></center>
 
-### What is a container?
+> ### What is a container?
 > A container is a loosely isolated environment that allows us to build and run software packages. These software packages include the code and all dependencies to run applications quickly and reliably on any computing environment. We call these packages container images.
 >
 > The container image becomes the unit we use to distribute our applications.
 
-### What is software containerization?
+> ### What is software containerization?
 > Software containerization is an OS-virtualization method used to deploy and run containers without using a virtual machine (VM). Containers can run on physical hardware, in the cloud, on VMs, and across multiple operating systems.
 
 ### What is Docker?
 > Docker is a containerization platform used to develop, ship, and run containers. Docker doesn't use a hypervisor, and you can run Docker on your desktop or laptop if you're developing and testing applications. The desktop version of Docker supports Linux, Windows, and macOS. For production systems, Docker is available for server environments, including many variants of Linux and Microsoft Windows Server 2016 and above. Many clouds, including Azure, support Docker.
 
-### Docker architecture
+> ### Docker architecture
 > The Docker platform consists of several components that we use to build, run, and manage our containerized applications.
 
-### Docker Engine
+> ### Docker Engine
 > The Docker Engine consists of several components configured as a client-server implementation where the client and server run simultaneously on the same host. The client communicates with the server using a REST API, which enables the client to also communicate with a remote server instance.
 
-### The Docker client
+> ### The Docker client
 > There are two alternatives for Docker client: A command-line application named docker or a Graphical User Interface (GUI) based application called Docker Desktop. Both the CLI and Docker Desktop interact with a Docker server. The docker commands from the CLI or Docker Desktop use the Docker REST API to send instructions to either a local or remote server and function as the primary interface we use to manage our containers.
 
-### The Docker server
+> ### The Docker server
 > The Docker server is a daemon named dockerd. The dockerd daemon responds to requests from the client via the Docker REST API and can interact with other daemons. The Docker server is also responsible for tracking the lifecycle of our containers.
 
-### Docker objects
+> ### Docker objects
 > There are several objects that you'll create and configure to support your container deployments. These include networks, storage volumes, plugins, and other service objects. We won't cover all of these objects here, but it's good to keep in mind that these objects are items that we can create and deploy as needed.
 
-### Docker Hub
+> ### Docker Hub
 > Docker Hub is a Software as a Service (SaaS) Docker container registry. Docker registries are repositories that we use to store and distribute the container images we create. Docker Hub is the default public registry Docker uses for image management.
 >
 > Keep in mind that you can create and use a private Docker registry or use one of the many cloud provider options available. For example, you can use Azure Container Registry to store container images to use in several Azure container-enabled services.
@@ -71,6 +71,65 @@
 | | | 
 | --- | ---- | 
 | We use Unionfs to create Docker images. Unionfs is a filesystem that allows you to stack several directories—called branches—in such a way that it appears as if the content is merged. However, the content is physically kept separate. Unionfs allows you to add and remove branches as you build out your file system. <br> <br> For example, assume we're building an image for our web application from earlier. We'll layer the Ubuntu distribution as a base image on top of the boot file system. Next, we'll install nginx and our web app. We're effectively layering nginx and the web app on top of the original Ubuntu image. <br> <br> A final writeable layer is created once the container is run from the image. However, this layer doesn't persist when the container is destroyed. | <img src="https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/media/3-unionfs-diagram.svg"> |
+
+> ### What is a base image?
+> A base image is an image that uses the Docker scratch image. The scratch image is an empty container image that doesn't create a filesystem layer. This image assumes that the application you're going to run can directly use the host OS kernel.
+>
+> ### What is a parent image?
+> A parent image is a container image from which you create your images.
+>
+> For example, instead of creating an image from scratch and then installing Ubuntu, we'll use an image already based on Ubuntu. We can even use an image that already has nginx installed. A parent image usually includes a container OS.
+> 
+> What is the main difference between base and parent images?
+> Both image types allow us to create a reusable image. However, base images allow us more control over the final image contents. Recall from earlier that an image is immutable; you can only add to an image and not subtract.
+>
+> On Windows, you can only create container images that are based on Windows base container images. Microsoft provides and services these Windows base container images.
+
+### What is a Dockerfile?
+> A Dockerfile is a text file that contains the instructions we use to build and run a Docker image. The following aspects of the image are defined:
+>
+> - The base or parent image we use to create the new image
+> - Commands to update the base OS and install additional software
+> - Build artifacts to include, such as a developed application
+> - Services to expose, such as storage and network configuration
+> - Command to run when the container is launched
+> 
+> Let's map these aspects to an example Dockerfile. Suppose we're creating a Docker image for our ASP.NET Core website. The Dockerfile might look like the following example:
+````Bash
+# Step 1: Specify the parent image for the new image
+FROM ubuntu:18.04
+
+# Step 2: Update OS packages and install additional software
+RUN apt -y update &&  apt install -y wget nginx software-properties-common apt-transport-https \
+	&& wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+	&& dpkg -i packages-microsoft-prod.deb \
+	&& add-apt-repository universe \
+	&& apt -y update \
+	&& apt install -y dotnet-sdk-3.0
+
+# Step 3: Configure Nginx environment
+CMD service nginx start
+
+# Step 4: Configure Nginx environment
+COPY ./default /etc/nginx/sites-available/default
+
+# STEP 5: Configure work directory
+WORKDIR /app
+
+# STEP 6: Copy website code to container
+COPY ./website/. .
+
+# STEP 7: Configure network requirements
+EXPOSE 80:8080
+
+# STEP 8: Define the entry point of the process that runs in the container
+ENTRYPOINT ["dotnet", "website.dll"]
+````  
+> There are several commands in this file that allow us to manipulate the image structure. For example, the `COPY` command copies the content from a specific folder on the local machine to the container image we're building.
+>
+> Recall that earlier, we mentioned that Docker images make use of `unionfs`. Each of these steps creates a cached container image as we build the final container image. These temporary images are layered on top of the previous image and presented as single image once all steps complete.
+>
+> Finally, notice the last step, *step 8.* The `ENTRYPOINT` in the file indicates which process will execute once we run a container from an image. If there's no `ENTRYPOINT` or another process to be executed, Docker will interpret that as there's nothing for the container to do, and the container will exit.
 
 # Play with Docker Classroom
 ## For Developers
