@@ -312,6 +312,43 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > | MACvLan | L2Tunnel |
 > | None | None |
 
+### When to use Docker containers
+> As we've learned, Docker has several features for us to use. Here, we'll look at the benefits that Docker provides to our development and operations teams. We'll also look at a few scenarios where Docker may not be the best choice.
+>
+> Recall from earlier that there are a number of challenges our team faces as they develop and publish our order-tracking portal. They're looking for a solution to: 
+> - Manage our hosting environments with ease.
+> - Guarantee continuity in how we deliver our software.
+> - Ensure we make efficient use of server hardware.
+> - Allow for the portability of our applications.
+>
+> Docker is a solution to these challenges.
+>
+> #### Efficient hardware use
+> Containers run without using a virtual machine (VM). As we learned, the container relies on the host kernel for functions such as file system, network management, process scheduling, and memory management.
+>
+> Compared to a VM, we can see that a VM requires an OS installed to provide kernel functions to the running applications inside the VM. Keep in mind that the VM OS also requires disk space, memory, and CPU time. By removing the VM and the additional OS requirement, we can free resources on the host and use it for running other containers.
+>
+> #### Container isolation & Application portability
+> Docker containers provide security features to run multiple containers simultaneously on the same host without affecting each other. As we saw, we can configure both data storage and network configuration to isolate our containers or share data and connectivity between specific containers.
+>
+> Because containers are lightweight, they don't suffer from slow startup or shutdown times like VMs. This aspect makes redeployment and other deploy scenarios—such as scaling up or down—smooth and fast.
+
+### When not to use Docker containers
+> #### Security and virtualization
+> Containers provide a level of isolation. However, containers share a single host OS kernel, which can be a single point of attack.
+>
+> We also need to take into account aspects such as storage and networks to make sure that we consider all security aspects. For example, all containers will use the bridge network by default and can access each other via IP address.
+>
+> #### Service monitoring
+> Managing the applications and containers is more complicated than traditional VM deployments. There are logging features that tell us about the state of the running containers, but more detailed information about services inside the container is harder to monitor.
+>
+> For example, Docker provides us with the `docker stats` command. This command returns information for the container such as percentage CPU usage, percentage memory usage, I/O written to disk, network data sent and received, and process IDs assigned. This information is useful as an immediate data stream; however, no aggregation is done because the data isn't stored. We'd have to install third-party software for meaningful data capture over a period of time.
+
+
+
+
+
+
 
 
 
