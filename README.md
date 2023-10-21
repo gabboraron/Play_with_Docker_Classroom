@@ -1,4 +1,10 @@
 # 🐋
+***Contents***
+- [Intro to docker containers](https://github.com/gabboraron/Play_with_Docker_Classroom/edit/main/README.md#there-are-several-challenges-that-well-need-to-consider-in-a-usual-scenario) based on [4]
+- [Play with docker classroom](https://github.com/gabboraron/Play_with_Docker_Classroom/edit/main/README.md#there-are-several-challenges-that-well-need-to-consider-in-a-usual-scenario) based on [2]
+
+  ----------
+
 > *"The idea of using software containerization technology as a time-saving and cost-reduction solution is popular. One of the strengths of containerization is that you don't have to configure hardware and spend time installing operating systems and software to host a deployment. Containers are isolated from each other, and multiple containers can run on the same hardware. This configuration helps us use hardware more efficiently and can help improve our application's security."*
 
 ## There are several challenges that we'll need to consider in a usual scenario:
@@ -68,9 +74,8 @@
 > A container image is immutable. Once you've built an image, you can't change it. The only way to change an image is to create a new image. This feature is our guarantee that the image we use in production is the same image used in development and QA.
 
 ### What is the Stackable Unification File System (Unionfs)?
-| | | 
-| --- | ---- | 
 | We use Unionfs to create Docker images. Unionfs is a filesystem that allows you to stack several directories—called branches—in such a way that it appears as if the content is merged. However, the content is physically kept separate. Unionfs allows you to add and remove branches as you build out your file system. <br> <br> For example, assume we're building an image for our web application from earlier. We'll layer the Ubuntu distribution as a base image on top of the boot file system. Next, we'll install nginx and our web app. We're effectively layering nginx and the web app on top of the original Ubuntu image. <br> <br> A final writeable layer is created once the container is run from the image. However, this layer doesn't persist when the container is destroyed. | <img src="https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/media/3-unionfs-diagram.svg"> |
+| --- | ---- | 
 
 > ### What is a base image?
 > A base image is an image that uses the Docker scratch image. The scratch image is an empty container image that doesn't create a filesystem layer. This image assumes that the application you're going to run can directly use the host OS kernel.
@@ -278,6 +283,8 @@ ENTRYPOINT ["dotnet", "website.dll"]
 ------------
 
 # Play with Docker Classroom
+> The Play with Docker classroom brings you labs and tutorials that help you get hands-on experience using Docker. In this classroom you will find a mix of labs and tutorials that will help Docker users, including SysAdmins, IT Pros, and Developers. There is a mix of hands-on tutorials right in the browser, instructions on setting up and using Docker.
+
 ## For Developers
 ### Stage 1: The Basics
 - Use the following command to clone the lab’s repo from GitHub. This will make a copy of the lab’s repo in a new sub-directory called `linux_tweet_app`. 
@@ -315,10 +322,10 @@ ENTRYPOINT ["dotnet", "website.dll"]
 
 
 ### Sources:
-- https://docker-curriculum.com
-- https://training.play-with-docker.com
-- https://docs.docker.com/get-started/resources/
-- https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
+1 https://docker-curriculum.com
+2 https://training.play-with-docker.com
+3 https://docs.docker.com/get-started/resources/
+4 https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
 
 
 
