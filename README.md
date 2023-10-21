@@ -172,6 +172,111 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > ````
 > You can't remove an image if a container is still using the image. The docker rmi command returns an error message, which lists the container that relies on the image.
 
+
+## How Docker containers work
+> Earlier, you discovered the container becomes the unit you'll use to distribute your apps. You also learned the container is in a standardized format both your developer and operation teams use.
+>
+> In your example, you're developing an order-tracking portal that your company's various outlets will use. With the Docker image built, your operations team is now responsible for the deploying, rolling out updates, and managing your order-tracking portal.
+>
+> In the previous unit, you looked at how a Docker image is built. Here, you'll look a bit at a Docker container's lifecycle and how to manage containers. You'll also look at how to think about configuring data storage and the network options for your containers.
+
+### How to manage Docker containers
+> A Docker container has a lifecycle that you can use to manage and track the state of the container.
+>
+> To place a container in the run state, use the `run` command. You can also restart a container that's already running. When restarting a container, the container receives a termination signal to enable any running processes to shut down gracefully before the container's kernel terminates. **A container is considered in a running state until it's either paused, stopped, or killed.** A container can self-exit when the running process completes, or if the process goes into a fault state.
+>
+> - To pause a running container, use the `pause` command. **This command suspends all processes in the container.**
+> - To stop a running container, use the `stop` command. The stop command enables the working process to shut down gracefully by sending it a termination signal. **The container's kernel terminates after the process shuts down.**
+> - If you need to terminate the container, use the `kill` command to send a kill signal. The container's kernel captures the kill signal, but the running process doesn't. **This command forcefully terminates the working process in the container.**
+> - To remove containers that are in a stopped state, use the `remove` command. **After removing a container, all data stored in the container gets destroyed.**
+>
+
+<center>
+	<img alt="From the created state with the Docker run will become Running state where you can use Docker pause then will became Paused state from the with docker unpause can return to Running state, which can be stopped with Docker stop. The stopped container will be removed with docker remove." src="https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/media/4-docker-container-lifecycle-2.png">
+</center>
+
+
+### How to view available containers
+> To list running containers, run the `docker ps` command. To see all containers in all states, pass the `-a` argument.
+>
+> *output:*
+>
+>
+> ````Bash
+> CONTAINER ID    IMAGE               COMMAND                CREATED          STATUS              PORTS          NAMES
+> d93d40cc1ce9    tmp-ubuntu:latest  "dotnet website.dll …"  6 seconds ago    Up 5 seconds        8080/tcp      happy_wilbur
+> 33a6cf71f7c1    tmp-ubuntu:latest  "dotnet website.dll …"  2 hours ago     Exited (0) 9 seconds ago            adoring_borg
+> ````
+>
+> Here you can see:
+> - **The image name** listed in the `IMAGE` column; in this example, `tmp-ubuntu: latest`. Notice how you're allowed to create more than one container from the same image. This is a powerful management feature you can use to enable scaling in your solutions.
+> - **The container status** listed in the `STATUS` column. In this example, you have one container that's running and one container that has exited. The container's status is usually your first indicator of the container's health.
+> - **The container name** listed in the `NAMES` column. Apart from the container ID in the first column, containers also receive a name. In this example, you didn't explicitly provide a name for each container, and as a result, Docker gave the container a random name. **To give a container an explicit name using the `--name` flag, use the `run` command.**
+>
+
+#### Why are containers given a name?
+> This feature enables you to run multiple container instances of the same image. Container names are unique, which means if you specify a name, you can't reuse that name to create a new container.
+>
+
+#### run a container
+> To start a container, use the `docker run` command. You only need to specify the image to run with its name or ID to launch the container from the image. A container launched in this manner provides an interactive experience.
+>
+> Here, to run the container with our website in the background, add the `-d` flag.
+> ```Bash
+> docker run -d tmp-ubuntu
+> ```
+> The command, in this case, only returns the ID of the new container.
+>
+
+#### pause a container
+> To pause a container, run the docker pause command.
+>
+> Pausing a container suspends all processes. This command enables the container to continue processes at a later stage. The `docker unpause` command unsuspends all processes in the specified containers.
+> 
+> ```Bash
+> docker pause happy_wilbur
+> ```
+
+#### restart a container
+> To restart containers, run the `docker restart` command. The container receives a stop command followed by a start command. If the container doesn't respond to the stop command, then a kill signal is sent.
+>
+> ```Bash
+> docker restart happy_wilbur
+> ```
+
+#### stop a container
+> To stop a running container, run the `docker stop` command.
+>
+> The stop command sends a termination signal to the container and the processes running in the container.
+> 
+> ```Bash
+> docker stop happy_wilbur
+> ```
+
+#### remove a container
+> To remove a container, run the `docker rm` command.
+>
+> After you remove the container, all data in the container is destroyed. It's essential to always consider containers as temporary when thinking about storing data.
+>
+> ```Bash
+> docker rm happy_wilbur
+> ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------
+
 # Play with Docker Classroom
 ## For Developers
 ### Stage 1: The Basics
