@@ -267,6 +267,61 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > docker rm happy_wilbur
 > ```
 
+### container storage configuration
+> ***As we described earlier, always consider containers as temporary when the app in a container needs to store data.***
+>
+> *Let's assume your tracking portal creates a log file in a subfolder to the root of the app; that is, directly to the container file system. When your app writes data to the log file, the system writes the data to the writable container layer.*
+>
+> - **Container storage is temporary** Your log file won't persist between container instances. For example, let's assume that you stop and remove the container. When you launch a new container instance, the new instance bases itself on the specified image, and all your previous data will be missing. Remember, all data in a container is destroyed with the container when you remove a container.
+> - **Container storage is coupled to the underlying host machine** Accessing or moving the log file from the container is difficult, because the container is coupled to the underlying host machine. You have to connect to the container instance to access the file.
+> - **Container storage drives are less performant** Containers implement a storage driver to allow your apps to write data. This driver introduces an extra abstraction to communicate with the host OS kernel, and is less performant than writing directly to a host filesystem.
+>
+> ***Containers can make use of two options to persist data. The first option is to make use of volumes, and the second is bind mounts.***
+>
+> #### volume?
+> A volume is stored on the host filesystem at a specific folder location. Choose a folder where you know the data won't be modified by non-Docker processes.
+>
+> Docker creates and manages the new volume by running the `docker volume create` command. This command can form part of our Dockerfile definition, which means that you can create volumes as part of the container-creation process.
+>
+> Volumes are stored within directories on the host filesystem. Docker will mount and manage the volumes in the container. After mounting, these volumes are isolated from the host machine.
+>
+> In this example, you can create a directory on our container host and mount this volume into the container when you create the tracking portal container. When your tracking portal logs data, you can access this information via the container host's filesystem. You'll have access to this log file even if your container is removed.
+>
+> Docker also provides a way for third-party companies to build add-ons to be used as volumes. For example, Azure Storage provides a plugin to mount Azure Storage as volumes on Docker containers.
+>
+> #### bind mount?
+> A bind mount is conceptually the same as a volume; however, instead of using a specific folder, you can mount any file or folder on the host. You're also expecting that the host can change the contents of these mounts. *Just like volumes, the bind mount is created if you mount it and it doesn't yet exist on the host.*
+>
+> **Bind mounts have limited functionality compared to volumes, and even though they're more performant, they depend on the host having a specific folder structure in place. Bind is the better choice if you want to update a file time to time.**
+>
+> Volumes are considered the preferred data-storage strategy to use with containers.
+>
+> For Windows containers, another option is available: You can mount an SMB path as a volume and present it to containers. This allows containers on different hosts to use the same persistent storage.
+
+### Docker container network configuration
+> The default Docker network configuration allows for isolating containers on the Docker host. This feature enables you to build and configure apps that can communicate securely with each other.
+>
+> You can choose which of these network configurations to apply to your container depending on its network requirements.
+>
+> | For Linux, there are six preconfigured network options | For Windows, there are six preconfigured network options |
+> | ------------------------------------------------------ | -------------------------------------------------------- |
+> | Bridge | NAT (Network Address Translation) |  
+> | Host | Transparent | 
+> | Overlay | Overlay |
+> | IPvLan | L2Bridge |
+> | MACvLan | L2Tunnel |
+> | None | None |
+
+
+
+
+
+
+
+
+
+
+
 
 
 
