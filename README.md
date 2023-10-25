@@ -6,6 +6,8 @@
   ----------
 
 > *"The idea of using software containerization technology as a time-saving and cost-reduction solution is popular. One of the strengths of containerization is that you don't have to configure hardware and spend time installing operating systems and software to host a deployment. Containers are isolated from each other, and multiple containers can run on the same hardware. This configuration helps us use hardware more efficiently and can help improve our application's security."*
+>
+> *more: [Daniel Adetunji - How Docker Containers Work – Explained for Beginners](https://www.freecodecamp.org/news/how-docker-containers-work/)* 
 
 ## There are several challenges that we'll need to consider in a usual scenario:
 
