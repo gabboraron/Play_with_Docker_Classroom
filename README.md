@@ -135,6 +135,8 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > Recall that earlier, we mentioned that Docker images make use of `unionfs`. Each of these steps creates a cached container image as we build the final container image. These temporary images are layered on top of the previous image and presented as single image once all steps complete.
 >
 > Finally, notice the last step, *step 8.* The `ENTRYPOINT` in the file indicates which process will execute once we run a container from an image. If there's no `ENTRYPOINT` or another process to be executed, Docker will interpret that as there's nothing for the container to do, and the container will exit.
+>
+> more about docker files: [Anshita Bhasin - A step-by-step guide to create Dockerfile](https://medium.com/@anshita.bhasin/a-step-by-step-guide-to-create-dockerfile-9e3744d38d11)
 
 ### How to manage Docker images
 > Docker images are large files that are initially stored on your PC, and we need tools to manage these files.
