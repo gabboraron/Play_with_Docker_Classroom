@@ -356,7 +356,9 @@ ENTRYPOINT ["dotnet", "website.dll"]
 https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
 
 
-
+### How to push to docker hub?
+1. `docker login -u "hubusername" -p "password" docker.io`
+2. ``
 
 
 
