@@ -352,6 +352,9 @@ ENTRYPOINT ["dotnet", "website.dll"]
 
 
 
+### How to use GPU in Docker
+https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
+
 
 
 
