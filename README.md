@@ -358,9 +358,10 @@ https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
 
 ### How to push to docker hub?
 1. `docker login -u "hubusername" -p "password" docker.io`
-2. ``
+2. `docker tag getting-started YOUR-USER-NAME/getting-started` where `getting-started` image will get a new name and tag, attached to your `YOUR-USER-NAME`
+3. `docker push YOUR-USER-NAME/getting-started` push your `getting-started` docker to dockerhub
 
-
+*more: https://docs.docker.com/get-started/04_sharing_app/*
 
 
 
