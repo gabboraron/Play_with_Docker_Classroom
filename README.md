@@ -358,7 +358,9 @@ ENTRYPOINT ["dotnet", "website.dll"]
 
 
 ### How to use GPU in Docker
-https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
+> https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
+>
+> or install pytorch via pip: https://pytorch.org/get-started/locally/
 
 
 ### How to push to docker hub?
@@ -369,14 +371,14 @@ https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
 *more: https://docs.docker.com/get-started/04_sharing_app/*
 
 
-### Sharre file/folder with docker conatiner
-The first option most people encounter is the bind mount, where part of your local filesystem is shared with the container. For example, if you run
-
-`docker run -it -v /users/stephen:/my_files ubuntu bash`
-
-then the files at /users/stephen will be available at /my_files in the container, and you can read and write to them there. This is very simple and convenient, but if you’re using Docker Desktop a named volume may have better performance, for reasons I’ll explain in the next section.
-
-*more: https://www.docker.com/blog/file-sharing-with-docker-desktop/*
+### Share file/folder with docker conatiner
+> The first option most people encounter is the bind mount, where part of your local filesystem is shared with the container. For example, if you run
+>
+> `docker run -it -v /users/stephen:/my_files ubuntu bash`
+>
+> then the files at /users/stephen will be available at /my_files in the container, and you can read and write to them there. This is very simple and convenient, but if you’re using Docker Desktop a named volume may have better performance, for reasons I’ll explain in the next section.
+>
+> *more: https://www.docker.com/blog/file-sharing-with-docker-desktop/*
 
 
 
