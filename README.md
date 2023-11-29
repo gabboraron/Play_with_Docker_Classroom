@@ -146,6 +146,11 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > The Docker CLI and Docker Desktop allow us to manage images by building, listing, removing, and running them. We manage Docker images by using the `docker` client. The client doesn't execute the commands directly, and sends all queries to the `dockerd daemon`.
 >
 > The most used command `docker build` to build Docker images. Let's assume we use the Dockerfile definition from earlier to build an image. Here's an example that shows the build command: `docker build -t temp-ubuntu .`. The output should end like this, if everythin works well: `Successfully tagged temp-ubuntu:latest`. When each step executes, a new layer gets added to the image we're building, based on the Dockerfile, showed earlier. Also, notice that we execute a number of commands to install software and manage configuration. Once the command runs, the intermediate container is removed. The underlying cached image is kept on the build host and not automatically deleted. This optimization ensures that later builds reuse these images to speed up build times.
+>
+> #### `docker build`
+>
+> Replace <image_name> with the desired name for your Docker image and <tag> with a version or tag for the image. The . at the end specifies the build context, which includes the Dockerfile and any other files needed for the build process.
+> `docker build -t <image_name>:<tag> .`
 
 
 ### What is an image tag?
