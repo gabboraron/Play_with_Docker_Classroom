@@ -239,8 +239,8 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > ```Bash
 > docker run -d tmp-ubuntu
 > ```
-> The command, in this case, only returns the ID of the new container.
->
+> The command, in this case, only returns the ID of the new container. To use the interactive running option (for example to open the operating system and start something there) use: `docker run -it containername:version`
+> 
 
 #### pause a container
 > To pause a container, run the docker pause command.
