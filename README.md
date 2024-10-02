@@ -439,12 +439,12 @@ ENTRYPOINT ["dotnet", "website.dll"]
 
 
 ### Sources:
-1 https://docker-curriculum.com
-2 https://training.play-with-docker.com
-3 https://docs.docker.com/get-started/resources/
-4 https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
-5 [Tyler Charboneau - How to “Dockerize” Your Python Applications](https://www.docker.com/blog/how-to-dockerize-your-python-applications/)
-6 [Containerize a Python application](https://docs.docker.com/guides/language/python/containerize/)
+1. https://docker-curriculum.com
+2. https://training.play-with-docker.com
+3. https://docs.docker.com/get-started/resources/
+4. https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
+5. [Tyler Charboneau - How to “Dockerize” Your Python Applications](https://www.docker.com/blog/how-to-dockerize-your-python-applications/)
+6. [Containerize a Python application](https://docs.docker.com/guides/language/python/containerize/)
 
 
 
