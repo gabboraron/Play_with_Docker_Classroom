@@ -422,7 +422,7 @@ ENTRYPOINT ["dotnet", "website.dll"]
   Status: Downloaded newer image for alpine:latest
   888e89a3b36b
   ```
-- Docker keeps a container running as long as the process it started inside the container is still running. In this case the hostname process exits as soon as the output is written. This means the container stops. However, Docker doesn’t delete resources by default, so the container still exists in the Exited state.
+- Docker keeps a container running as long as the process it started inside the container is still running. In this case, the hostname process exits as soon as the output is written. This means the container stops. However, Docker doesn’t delete resources by default, so the container still exists in the Exited state.
   
   List all containers. `docker container ls --all`
   
@@ -445,6 +445,7 @@ ENTRYPOINT ["dotnet", "website.dll"]
 4. https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
 5. [Tyler Charboneau - How to “Dockerize” Your Python Applications](https://www.docker.com/blog/how-to-dockerize-your-python-applications/)
 6. [Containerize a Python application](https://docs.docker.com/guides/language/python/containerize/)
+7. [A step-by-step guide to create Dockerfile](https://freedium.cfd/https://medium.com/@anshita.bhasin/a-step-by-step-guide-to-create-dockerfile-9e3744d38d11)
 
 
 
