@@ -351,7 +351,7 @@ ENTRYPOINT ["dotnet", "website.dll"]
 > #### Service monitoring
 > Managing the applications and containers is more complicated than traditional VM deployments. There are logging features that tell us about the state of the running containers, but more detailed information about services inside the container is harder to monitor.
 >
-> For example, Docker provides us with the `docker stats` command. This command returns information for the container such as percentage CPU usage, percentage memory usage, I/O written to disk, network data sent and received, and process IDs assigned. This information is useful as an immediate data stream; however, no aggregation is done because the data isn't stored. We'd have to install third-party software for meaningful data capture over a period of time.
+> For example, Docker provides us with the `docker stats` command. This command returns information for the container such as percentage CPU usage, percentage memory usage, I/O written to disk, network data sent and received, and process IDs assigned. This information is useful as an immediate data stream; however, no aggregation is done because the data isn't stored. We'd have to install third-party software for meaningful data capture over some time.
 
 
 
@@ -360,10 +360,10 @@ ENTRYPOINT ["dotnet", "website.dll"]
 ### How to use GPU in Docker
 > https://saturncloud.io/blog/how-to-install-pytorch-on-the-gpu-with-docker/
 >
-> or install pytorch via pip: https://pytorch.org/get-started/locally/
+> or install PyTorch via pip: https://pytorch.org/get-started/locally/
 
 
-### How to push to docker hub?
+### How to push to the docker hub?
 1. `docker login -u "hubusername" -p "password" docker.io`
 2. `docker tag getting-started YOUR-USER-NAME/getting-started` where `getting-started` image will get a new name and tag, attached to your `YOUR-USER-NAME`
 3. `docker push YOUR-USER-NAME/getting-started` push your `getting-started` docker to dockerhub
@@ -371,12 +371,12 @@ ENTRYPOINT ["dotnet", "website.dll"]
 *more: https://docs.docker.com/get-started/04_sharing_app/*
 
 
-### Share file/folder with docker conatiner
+### Share file/folder with docker container
 > The first option most people encounter is the bind mount, where part of your local filesystem is shared with the container. For example, if you run
 >
 > `docker run -it -v /users/stephen:/my_files ubuntu bash`
 >
-> then the files at /users/stephen will be available at /my_files in the container, and you can read and write to them there. This is very simple and convenient, but if you’re using Docker Desktop a named volume may have better performance, for reasons I’ll explain in the next section.
+> Then the files at /users/stephen will be available at /my_files in the container, and you can read and write to them there. This is very simple and convenient, but if you’re using Docker Desktop a named volume may have better performance, for reasons I’ll explain in the next section.
 >
 > *more: https://www.docker.com/blog/file-sharing-with-docker-desktop/*
 
@@ -432,7 +432,7 @@ ENTRYPOINT ["dotnet", "website.dll"]
 
   `docker container run --interactive --tty --rm ubuntu bash`
   
-  parmeters:
+  parameters:
   - `interactive` says you want an interactive session.
   - `tty` allocates a pseudo-tty.
   - `rm` tells Docker to go ahead and remove the container when it’s done executing.
@@ -443,6 +443,8 @@ ENTRYPOINT ["dotnet", "website.dll"]
 2 https://training.play-with-docker.com
 3 https://docs.docker.com/get-started/resources/
 4 https://learn.microsoft.com/en-us/training/modules/intro-to-docker-containers/
+5 [Tyler Charboneau - How to “Dockerize” Your Python Applications](https://www.docker.com/blog/how-to-dockerize-your-python-applications/)
+6 [Containerize a Python application](https://docs.docker.com/guides/language/python/containerize/)
 
 
 
