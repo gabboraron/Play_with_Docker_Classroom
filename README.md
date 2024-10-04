@@ -153,6 +153,8 @@ ENTRYPOINT ["dotnet", "website.dll"]
 >
 > Replace <image_name> with the desired name for your Docker image and <tag> with a version or tag for the image. The . at the end specifies the build context, which includes the Dockerfile and any other files needed for the build process.
 > `docker build -t <image_name>:<tag> .`
+>
+> *Don't forget: repository name must be lowercase!*
 
 
 ### What is an image tag?
