@@ -90,9 +90,12 @@
 > What is the main difference between base and parent images?
 > Both image types allow us to create a reusable image. However, base images allow us more control over the final image contents. Recall from earlier that an image is immutable; you can only add to an image and not subtract.
 >
-> On Windows, you can only create container images that are based on Windows base container images. Microsoft provides and services these Windows base container images.
+> On Windows, you can only create container images that are based on Windows-based container images. Microsoft provides and services these Windows-based container images.
 
 ### What is a Dockerfile?
+
+***The docker file's name is exactly `Dockerfile` without`.` or [`dockerfile`](https://github.com/docker/for-win/issues/8781#issuecomment-704962698) or file format extension!***
+
 > A Dockerfile is a text file that contains the instructions we use to build and run a Docker image. The following aspects of the image are defined:
 >
 > - The base or parent image we use to create the new image
@@ -101,7 +104,8 @@
 > - Services to expose, such as storage and network configuration
 > - Command to run when the container is launched
 > 
-> Let's map these aspects to an example Dockerfile. Suppose we're creating a Docker image for our ASP.NET Core website. The Dockerfile might look like the following example:
+> Let's map these aspects to an example `Dockerfile`. Suppose we're creating a Docker image for our ASP.NET Core website. The Dockerfile might look like the following example:
+
 ````Bash
 # Step 1: Specify the parent image for the new image
 FROM ubuntu:18.04
