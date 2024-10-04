@@ -132,9 +132,11 @@ EXPOSE 80:8080
 # STEP 8: Define the entry point of the process that runs in the container
 ENTRYPOINT ["dotnet", "website.dll"]
 ````  
-> There are several commands in this file that allow us to manipulate the image structure. For example, the `COPY` command copies the content from a specific folder on the local machine to the container image we're building.
+> Several commands in  [this file](https://docs.docker.com/reference/dockerfile/) that allow us to manipulate the image structure. For example, the `COPY` command copies the content from a specific folder on the local machine to the container image we're building.
 >
-> Recall that earlier, we mentioned that Docker images make use of `unionfs`. Each of these steps creates a cached container image as we build the final container image. These temporary images are layered on top of the previous image and presented as single image once all steps complete.
+> The [`WORKDIR`](https://docs.docker.com/reference/dockerfile/#workdir) `/path/to/workdir` changes the working directory for `RUN`, `CMD`, `ENTRYPOINT`, `COPY` and `ADD` instructions that follow it in the Dockerfile. ⚠️ ***If the `WORKDIR` doesn't exist, it will be created even if it's not used in any subsequent Dockerfile instruction!*** [Simple definition](https://www.educative.io/answers/what-is-the-workdir-command-in-docker): *"The WORKDIR command is used to define the working directory of a Docker container at any given time."*
+>
+> Recall that earlier, we mentioned that Docker images make use of `unionfs`. Each of these steps creates a cached container image as we build the final container image. These temporary images are layered on top of the previous image and presented as a single image once all steps are complete.
 >
 > Finally, notice the last step, *step 8.* The `ENTRYPOINT` in the file indicates which process will execute once we run a container from an image. If there's no `ENTRYPOINT` or another process to be executed, Docker will interpret that as there's nothing for the container to do, and the container will exit.
 >
@@ -145,7 +147,7 @@ ENTRYPOINT ["dotnet", "website.dll"]
 >
 > The Docker CLI and Docker Desktop allow us to manage images by building, listing, removing, and running them. We manage Docker images by using the `docker` client. The client doesn't execute the commands directly, and sends all queries to the `dockerd daemon`.
 >
-> The most used command `docker build` to build Docker images. Let's assume we use the Dockerfile definition from earlier to build an image. Here's an example that shows the build command: `docker build -t temp-ubuntu .`. The output should end like this, if everythin works well: `Successfully tagged temp-ubuntu:latest`. When each step executes, a new layer gets added to the image we're building, based on the Dockerfile, showed earlier. Also, notice that we execute a number of commands to install software and manage configuration. Once the command runs, the intermediate container is removed. The underlying cached image is kept on the build host and not automatically deleted. This optimization ensures that later builds reuse these images to speed up build times.
+> The most used command `docker build` to build Docker images. Let's assume we use the Dockerfile definition from earlier to build an image. Here's an example that shows the build command: `docker build -t temp-ubuntu .`. The output should end like this, if everything works well: `Successfully tagged temp-ubuntu:latest`. When each step executes, a new layer gets added to the image we're building, based on the Dockerfile, shown earlier. Also, notice that we execute many commands to install software and manage configuration. Once the command runs, the intermediate container is removed. The underlying cached image is kept on the build host and not automatically deleted. This optimization ensures that later builds reuse these images to speed up build times.
 >
 > #### `docker build`
 >
@@ -156,11 +158,11 @@ ENTRYPOINT ["dotnet", "website.dll"]
 ### What is an image tag?
 > An image tag is a text string that's used to version an image.
 >
-> When building an image, we name and optionally tag the image using the `-t` command flag. In our example, we named the image using `-t temp-ubuntu`, while the resulting image name was tagged `temp-ubuntu: latest`. An image is labeled with the `latest` tag if you don't specify a tag.
+> When building an image, we name and optionally tag the image using the `-t` command flag. In our example, we named the image using `-t temp-ubuntu`, while the resulting image name was tagged `temp-ubuntu: latest`. An image is labelled with the `latest` tag if you don't specify a tag.
 >
 > A single image can have multiple tags assigned to it. By convention, the most recent version of an image is assigned the latest tag and a tag that describes the image version number. When you release a new version of an image, you can reassign the latest tag to reference the new image.
 >
-> For Windows, Microsoft doesn't provide base container images with the latest tag. For Windows base container images, you have to specify a tag that you want to use. For example, the Windows base container image for Server Core is `mcr.microsoft.com/windows/servercore`. Among its tags are `ltsc2016`, `ltsc2019`, and `ltsc2022`.
+> For Windows, Microsoft doesn't provide base container images with the latest tag. For Windows base container images, you have to specify a tag that you want to use. For example, the Windows-base container image for Server Core is `mcr.microsoft.com/windows/servercore`. Among its tags are `ltsc2016`, `ltsc2019`, and `ltsc2022`. ***NOTE:*** *"Windows offers four container-based images that users can build from. Each base image is a different type of the Windows or Windows Server operating system, has a different on-disk footprint, and has a different set of the Windows API set." [Microsoft - Container Base Images](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-base-images) Or use[dockur](https://github.com/dockur/windows) to use Windows as a base of Docker image.*
 
 ### How to list images
 > The Docker software automatically configures a local image registry on your machine. You can view the images in this registry with the `docker images` command.
