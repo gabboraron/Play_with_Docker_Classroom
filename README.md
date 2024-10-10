@@ -388,6 +388,20 @@ ENTRYPOINT ["dotnet", "website.dll"]
 >
 > *more: https://www.docker.com/blog/file-sharing-with-docker-desktop/*
 
+## Save the docker container as an image
+> *[Save one or more images](https://docs.docker.com/reference/cli/docker/image/save/)s to a tar archive (streamed to STDOUT by default)*
+> 
+> `docker save containername > E:\Your\Directory\imagename.tar`
+>
+> Produces a tarred repository to the standard output stream. Contains all parent layers, and all tags + versions, or specified `repo:tag`, for each argument provided.
+>
+> With `-o` you can write to a file, instead of STDOUT: `docker save -o fedora-latest.tar fedora:latest`
+
+## Load saved images
+> [Load an image or repository](https://docs.docker.com/reference/cli/docker/image/load/) from a tar archive (even if compressed with gzip, bzip2, xz or zstd) from a file or STDIN. It restores both images and tags.
+>
+> `docker load < busybox.tar.gz` Or load images from a file (--input) `docker load --input fedora.tar`
+
 
 
 
